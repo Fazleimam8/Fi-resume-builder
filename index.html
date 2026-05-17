@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fazle Imam — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-brand">
+    fi<span>.</span>resume
+  </div>
+  <div class="topbar-actions">
+    <div id="config-btn-wrap" style="display:none">
+      <button class="btn btn-ghost" onclick="togglePanel()" id="panel-btn">⚙ Config</button>
+    </div>
+    <button class="btn btn-accent" onclick="saveConfig()" id="save-btn" style="display:none">💾 Save</button>
+    <button class="btn btn-print" onclick="window.print()">⬇ Download PDF</button>
+    <span class="admin-badge no-print" id="admin-badge" style="display:none">
+      ⚙ Config
+      <button class="admin-lock-out-btn" onclick="logout()">Logout</button>
+    </span>
+    <button class="btn btn-ghost no-print" id="admin-login-btn" onclick="showLogin()" style="font-size:12px">🔑 Login</button>
+  </div>
+</nav>
+
+<div class="page">
+  <aside class="config-panel" id="config-panel">
+    <div class="cp-header">
+      <div class="cp-title"><span class="ico">⚙</span> Resume Config <span class="cp-badge-live">LIVE</span></div>
+    </div>
+    <div class="cp-tabs">
+      <button class="cp-tab active" onclick="switchTab('basics',this)">Basics</button>
+      <button class="cp-tab" onclick="switchTab('experience',this)">Experience</button>
+      <button class="cp-tab" onclick="switchTab('skills',this)">Skills</button>
+      <button class="cp-tab" onclick="switchTab('theme',this)">Theme</button>
+    </div>
+
+    <div id="tab-basics">
+      <div class="cp-section">
+        <div class="cp-section-title">Personal Info</div>
+        <div class="cp-field"><label class="cp-label">Full Name</label><input class="cp-input" id="cfg-name" value="Fazle Imam" oninput="liveUpdate()" placeholder="Your Name"/></div>
+        <div class="cp-field"><label class="cp-label">Professional Title / Tagline</label><input class="cp-input" id="cfg-title" value="Associate Software Engineer · C# & .NET Developer · WPF · SQL Server" oninput="liveUpdate()" placeholder="e.g. Backend Engineer · .NET · C#"/></div>
+        <div class="cp-field"><label class="cp-label">Availability Status</label>
+          <select class="cp-select" id="cfg-avail" onchange="liveUpdate()">
+            <option value="Open to Work" selected>Open to Work</option>
+            <option value="Available for Freelance">Available for Freelance</option>
+            <option value="Actively Looking">Actively Looking</option>
+            <option value="Not Available">Not Available</option>
+          </select>
+        </div>
+      </div>
+      <div class="cp-section">
+        <div class="cp-section-title">Contact Details</div>
+        <div class="cp-field"><label class="cp-label">Location</label><input class="cp-input" id="cfg-location" value="Aligarh, Uttar Pradesh 202002" oninput="liveUpdate()" placeholder="City, State PIN"/></div>
+        <div class="cp-field"><label class="cp-label">Phone</label><input class="cp-input" id="cfg-phone" value="+91 8292848948" oninput="liveUpdate()" placeholder="+91 XXXXXXXXXX"/></div>
+        <div class="cp-field"><label class="cp-label">Email</label><input class="cp-input" id="cfg-email" value="fazleimam07860@gmail.com" oninput="liveUpdate()" placeholder="you@email.com"/></div>
+        <div class="cp-field"><label class="cp-label">LinkedIn URL</label><input class="cp-input" id="cfg-linkedin" value="linkedin.com/in/fazle-imam" oninput="liveUpdate()" placeholder="linkedin.com/in/..."/></div>
+        <div class="cp-field"><label class="cp-label">GitHub URL (optional)</label><input class="cp-input" id="cfg-github" oninput="liveUpdate()" placeholder="github.com/..."/></div>
+        <div class="cp-field"><label class="cp-label">Portfolio URL (optional)</label><input class="cp-input" id="cfg-portfolio" oninput="liveUpdate()" placeholder="yoursite.com"/></div>
+      </div>
+      <div class="cp-section">
+        <div class="cp-section-title">Professional Summary</div>
+        <div class="cp-field">
+          <textarea class="cp-textarea" id="cfg-summary" oninput="liveUpdate()" rows="6" placeholder="Write your professional summary...">Motivated Associate Software Engineer with 1+ year of experience designing and delivering enterprise-grade desktop applications using C#, .NET Framework, and WPF. Proficient in SQL Server database architecture, T-SQL optimization, and backend development following SOLID principles and MVVM design patterns. Demonstrated ability to contribute across the full SDLC from requirements gathering and architecture design to production deployment within Agile/Scrum environments. Actively pursuing growth in REST API development and cloud-integrated backend systems.</textarea>
+        </div>
+      </div>
+      
+      <div class="cp-section">
+        <div class="cp-section-title">Stats / Highlights</div>
+        <div class="cp-row">
+          <div class="cp-field"><label class="cp-label">Stat 1 Value</label><input class="cp-input" id="cfg-s1v" value="1+" oninput="liveUpdate()" placeholder="1+"/></div>
+          <div class="cp-field"><label class="cp-label">Stat 1 Label</label><input class="cp-input" id="cfg-s1l" value="Years Exp." oninput="liveUpdate()" placeholder="Years Exp."/></div>
+        </div>
+        <div class="cp-row">
+          <div class="cp-field"><label class="cp-label">Stat 2 Value</label><input class="cp-input" id="cfg-s2v" value="3" oninput="liveUpdate()" placeholder="3"/></div>
+          <div class="cp-field"><label class="cp-label">Stat 2 Label</label><input class="cp-input" id="cfg-s2l" value="Roles Held" oninput="liveUpdate()" placeholder="Roles Held"/></div>
+        </div>
+        <div class="cp-row">
+          <div class="cp-field"><label class="cp-label">Stat 3 Value</label><input class="cp-input" id="cfg-s3v" value="30%" oninput="liveUpdate()" placeholder="30%"/></div>
+          <div class="cp-field"><label class="cp-label">Stat 3 Label</label><input class="cp-input" id="cfg-s3l" value="DB Perf ↑" oninput="liveUpdate()" placeholder="DB Perf ↑"/></div>
+        </div>
+        <div class="cp-row">
+          <div class="cp-field"><label class="cp-label">Stat 4 Value</label><input class="cp-input" id="cfg-s4v" value="B.Tech" oninput="liveUpdate()" placeholder="B.Tech"/></div>
+          <div class="cp-field"><label class="cp-label">Stat 4 Label</label><input class="cp-input" id="cfg-s4l" value="Degree" oninput="liveUpdate()" placeholder="Degree"/></div>
+        </div>
+      </div>
+      <div class="cp-section">
+        <div class="cp-section-title">Education</div>
+        <div class="cp-field"><label class="cp-label">Degree</label><input class="cp-input" id="cfg-edeg" value="B.Tech in Information Technology" oninput="liveUpdate()" placeholder="B.Tech in Information Technology"/></div>
+        <div class="cp-field"><label class="cp-label">University</label><input class="cp-input" id="cfg-euni" value="Dr. A.P.J. Abdul Kalam Technical University" oninput="liveUpdate()" placeholder="University Name"/></div>
+        <div class="cp-row">
+          <div class="cp-field"><label class="cp-label">Start Year</label><input class="cp-input" id="cfg-estart" value="2021" oninput="liveUpdate()" placeholder="2021"/></div>
+          <div class="cp-field"><label class="cp-label">End Year</label><input class="cp-input" id="cfg-eend" value="2025" oninput="liveUpdate()" placeholder="2025"/></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-experience" style="display:none">
+      <div class="cp-section">
+        <div class="cp-section-title">Work Experience</div>
+        <div id="job-cards-container"><div style="font-size:12px;color:#94a3b8;">Job logic rendered via JS normally. Preview hardcoded on right.</div></div>
+        <button class="btn-add" onclick="addJob()">+ Add New Job</button>
+      </div>
+    </div>
+
+    <div id="tab-skills" style="display:none">
+      <div class="cp-section">
+        <div class="cp-section-title">Skill Proficiency (for progress bars)</div>
+        <div id="skill-prog-container"><div style="font-size:12px;color:#94a3b8;">Skills array rendered via JS normally. Preview hardcoded on right.</div></div>
+        <button class="btn-add" onclick="addSkillProg()">+ Add Skill</button>
+      </div>
+    </div>
+
+    <div id="tab-theme" style="display:none">
+      <div class="cp-section">
+        <div class="cp-section-title">Accent Color</div>
+        <div class="color-row" id="color-swatches">
+          <div class="color-opt selected" style="background:#2e7eed" data-color="#2e7eed" onclick="setAccent(this)"></div>
+          <div class="color-opt" style="background:#7c3aed" data-color="#7c3aed" onclick="setAccent(this)"></div>
+          <div class="color-opt" style="background:#059669" data-color="#059669" onclick="setAccent(this)"></div>
+          <div class="color-opt" style="background:#dc2626" data-color="#dc2626" onclick="setAccent(this)"></div>
+        </div>
+      </div>
+      <div class="cp-section">
+        <div class="cp-section-title">Visibility Toggles</div>
+        <div class="cp-toggle"><span class="toggle-label">Show Proficiency Bars</span><label class="toggle"><input type="checkbox" id="tog-prog" checked onchange="liveUpdate()"/><span class="slider-tog"></span></label></div>
+        <div class="cp-toggle"><span class="toggle-label">Show Stats Panel</span><label class="toggle"><input type="checkbox" id="tog-stats" checked onchange="liveUpdate()"/><span class="slider-tog"></span></label></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="resume-area" id="resume-area">
+    <div class="resume-card" id="resume-output">
+      
+      <header class="rh">
+        <div class="rh-bg-circles">
+          <div class="rh-circle1"></div>
+          <div class="rh-circle2"></div>
+          <div class="rh-circle3"></div>
+        </div>
+        <div class="rh-top">
+          <div>
+            <div class="rh-name">Fazle Imam</div>
+            <div class="rh-role">Associate Software Engineer · C# & .NET Developer · WPF · SQL Server</div>
+          </div>
+          <div class="rh-avail"><div class="pulse"></div>Open to Work</div>
+        </div>
+        <div class="rh-badges">
+          <span class="rh-badge">.NET Framework</span>
+          <span class="rh-badge">C# Developer</span>
+          <span class="rh-badge">WPF Desktop Apps</span>
+          <span class="rh-badge">SQL Server / T-SQL</span>
+          <span class="rh-badge">Git & Version Control</span>
+        </div>
+        <div class="rh-contacts">
+          <span>📍 Aligarh, Uttar Pradesh 202002</span>
+          <span>📞 +91 8292848948</span>
+          <span>✉️ fazleimam07860@gmail.com</span>
+          <span>🔗 linkedin.com/in/fazle-imam</span>
+        </div>
+      </header>
+
+      <div class="rb">
+        <div class="rb-main">
+          
+          <div class="sec">
+            <div class="sec-title">Professional Summary</div>
+            <p class="summary-p">Motivated Associate Software Engineer with 1+ year of experience designing and delivering enterprise-grade desktop applications using C#, .NET Framework, and WPF. Proficient in SQL Server database architecture, T-SQL optimization, and backend development following SOLID principles and MVVM design patterns. Demonstrated ability to contribute across the full SDLC from requirements gathering and architecture design to production deployment within Agile/Scrum environments. Actively pursuing growth in REST API development and cloud-integrated backend systems.</p>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">Work Experience</div>
+
+            <div class="job-entry">
+              <div class="je-top">
+                <div>
+                  <div class="je-title">Associate Software Engineer <span class="je-current">Current</span></div>
+                  <div class="je-company">Softential Solutions LLP</div>
+                </div>
+                <div class="je-period">January 2026 - Present</div>
+              </div>
+              <div class="je-loc">Aligarh UP</div>
+              <ul class="bullets">
+                <li>Architect and deliver enterprise-grade WPF desktop applications in C# using .NET Framework, applying MVVM pattern and data-binding for scalable, testable UI logic.</li>
+                <li>Design normalized SQL Server database schemas and author optimized T-SQL stored procedures reducing query execution time by up to 30% through indexing and execution plan analysis.</li>
+                <li>Implement backend business logic using Repository Pattern and Dependency Injection, enhancing code reusability and maintainability across enterprise modules.</li>
+                <li>Enforce Git branching strategies (GitFlow), conduct peer code reviews, and maintain technical documentation ensuring consistent release cycles.</li>
+                <li>Collaborate cross-functionally in Agile sprints to translate business requirements into well-scoped technical features delivered on schedule.</li>
+              </ul>
+            </div>
+
+            <div class="job-entry">
+              <div class="je-top">
+                <div>
+                  <div class="je-title">Associate Software Consultant <span class="je-current">Current</span></div>
+                  <div class="je-company">Softential Solutions LLP</div>
+                </div>
+                <div class="je-period">October 2025 - Present</div>
+              </div>
+              <div class="je-loc">Aligarh, UP</div>
+              <ul class="bullets">
+                <li>Advise on .NET application architecture for client projects recommending layered architecture, DAL abstraction, and SSMS-driven data reporting modules.</li>
+                <li>Conduct database audits on legacy SQL Server systems, proposing indexing strategies and query refactoring delivering measurable performance improvements.</li>
+                <li>Facilitate technical requirements workshops bridging development teams and business stakeholders translating constraints into sprint-ready deliverables.</li>
+              </ul>
+            </div>
+
+            <div class="job-entry">
+              <div class="je-top">
+                <div>
+                  <div class="je-title">Software Engineer Intern</div>
+                  <div class="je-company">Softential Solutions LLP</div>
+                </div>
+                <div class="je-period">May 2025 - July 2025</div>
+              </div>
+              <div class="je-loc">Aligarh UP</div>
+              <ul class="bullets">
+                <li>Developed and unit-tested WPF UI modules in C# implementing custom data templates, value converters, and event-driven interactions following MVVM architecture.</li>
+                <li>Wrote optimized T-SQL queries and database migration scripts in SSMS, gaining expertise in joins, subqueries, CTEs, schema normalization, and performance tuning.</li>
+                <li>Contributed to Git-managed repositories using feature branching, pull requests, and code reviews - participating in Agile sprint ceremonies.</li>
+                <li>Completed end-to-end SDLC exposure from user story analysis through testing and production handoff.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="rb-side">
+          
+          <div class="stat-grid">
+            <div class="stat-card"><div class="stat-num">1+</div><div class="stat-lbl">Years Exp.</div></div>
+            <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">Roles Held</div></div>
+            <div class="stat-card"><div class="stat-num">30%</div><div class="stat-lbl">DB Perf ↑</div></div>
+            <div class="stat-card"><div class="stat-num">B.Tech</div><div class="stat-lbl">Degree</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="side-sec-title">Skills Proficiency</div>
+            <div class="prog-wrap">
+              <div class="prog-item">
+                <div class="prog-row"><span>C#/.NET</span><span>90%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:90%"></div></div>
+              </div>
+              <div class="prog-item">
+                <div class="prog-row"><span>WPF/MVVM</span><span>85%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:85%"></div></div>
+              </div>
+              <div class="prog-item">
+                <div class="prog-row"><span>SQL Server/T-SQL</span><span>82%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:82%"></div></div>
+              </div>
+              <div class="prog-item">
+                <div class="prog-row"><span>Git/Version Control</span><span>78%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:78%"></div></div>
+              </div>
+              <div class="prog-item">
+                <div class="prog-row"><span>Agile / Scrum</span><span>75%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="side-sec-title">Tech & Tools</div>
+            <div class="skill-group">
+              <div class="sg-label">Languages</div>
+              <div class="sg-tags">
+                <span class="sg-tag">C#</span><span class="sg-tag">T-SQL</span><span class="sg-tag">LINQ</span><span class="sg-tag">XML/JSON</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="sg-label">Frameworks</div>
+              <div class="sg-tags">
+                <span class="sg-tag">.NET Framework</span><span class="sg-tag">WPF</span><span class="sg-tag">MVVM</span><span class="sg-tag">Entity Framework</span><span class="sg-tag">ASP.NET</span><span class="sg-tag">REST API</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="sg-label">Database</div>
+              <div class="sg-tags">
+                <span class="sg-tag db">SQL Server</span><span class="sg-tag db">SSMS</span><span class="sg-tag db">Stored Procedures</span><span class="sg-tag db">Indexing</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="sg-label">Tools / Practices</div>
+              <div class="sg-tags">
+                <span class="sg-tag">Git</span><span class="sg-tag">GitFlow</span><span class="sg-tag">Agile Scrum</span><span class="sg-tag">SOLID</span><span class="sg-tag">CI/CD</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec no-print kw-section">
+            <div class="kw-title">ATS Keywords</div>
+            <div class="kw-wrap">
+              <span class="kw">Backend Development</span><span class="kw">.NET Developer</span><span class="kw">C# Engineer</span><span class="kw">Database Design</span><span class="kw">Query Optimization</span><span class="kw">MVVM Architecture</span><span class="kw">SOLID Principles</span><span class="kw">Dependency Injection</span><span class="kw">Repository Pattern</span>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="side-sec-title">Education</div>
+            <div class="edu-card">
+              <div class="edu-deg">B.Tech in Information Technology</div>
+              <div class="edu-uni">Dr. A.P.J. Abdul Kalam Technical University</div>
+              <div class="edu-yr">2021 - 2025</div>
+            </div>
+          </div>
+
+          <div class="open-card">
+            <div class="open-title">Open To</div>
+            <div class="open-item">Backend .NET Developer roles</div>
+            <div class="open-item">Desktop App Engineer positions</div>
+            <div class="open-item">SQL/Database Developer roles</div>
+            <div class="open-item">Full-time or hybrid work</div>
+            <div class="open-item">Remote positions</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="admin-lock-overlay" id="login-overlay" style="display:none">
+  <div class="admin-lock-box">
+    <div class="admin-lock-icon">👤</div>
+    <div class="cp-tabs" style="margin-bottom: 16px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+      <button class="cp-tab active" id="tab-login" onclick="switchAuthMode('login')">Login</button>
+      <button class="cp-tab" id="tab-signup" onclick="switchAuthMode('signup')">Sign Up</button>
+    </div>
+    <div class="admin-lock-sub" id="auth-subtitle">
+      Enter your credentials to access your resume
+    </div>
+    <input class="cp-input" type="text" id="login-username" placeholder="Username" />
+    <input class="cp-input" type="password" id="login-password" placeholder="Password" style="margin-top:10px" />
+    <button class="admin-lock-btn" id="auth-action-btn" onclick="handleAuthAction()" style="margin-top:14px">Login</button>
+    <div class="admin-lock-err" id="login-error"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
